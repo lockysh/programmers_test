@@ -55,3 +55,16 @@ function solution(n, x = 1) {
     }
   }
 }
+
+//
+
+function solution(numbers) {
+  let sum = [];
+  for (i = 0; i < numbers.length; i++) {
+    for (j = i + 1; j < numbers.length; j++) {
+      if (!sum.includes(numbers[i] + numbers[j]))
+        sum.push(numbers[i] + numbers[j]);
+    }
+  }
+  return sum.sort((a, b) => a - b);
+}
