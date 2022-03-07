@@ -56,7 +56,7 @@ function solution(n, x = 1) {
   }
 }
 
-// 두 개 뽑아서 더하기
+// 4. 두 개 뽑아서 더하기
 
 function solution(numbers) {
   let sum = [];
@@ -67,4 +67,17 @@ function solution(numbers) {
     }
   }
   return sum.sort((a, b) => a - b);
+}
+
+/// Set 사용한 풀이
+
+function solution(numbers) {
+  const temp = [];
+
+  for (let i = 0; i < numbers.length; i++) {
+    for (let j = i + 1; j < numbers.length; j++) {
+      temp.push(numbers[i] + numbers[j]);
+    }
+  }
+  return [...new Set(temp)].sort((a, b) => a - b);
 }
