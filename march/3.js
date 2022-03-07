@@ -56,7 +56,7 @@ function solution(n, x = 1) {
   }
 }
 
-//
+// 두 개 뽑아서 더하기
 
 function solution(numbers) {
   let sum = [];
