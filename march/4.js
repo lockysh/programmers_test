@@ -50,7 +50,7 @@ function solution(left, right) {
   return sum;
 }
 
-/// idInteger 사용한 풀이
+/// isInteger 사용한 풀이
 
 function solution(left, right) {
   let answer = 0;
