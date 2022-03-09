@@ -79,3 +79,28 @@ function calDistance(now, target) {
   }
   return distance;
 }
+
+// 3. 숫자 문자열과 영단어
+
+function solution(s) {
+  let numbers = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  let answer = s;
+
+  for (let i = 0; i < numbers.length; i++) {
+    answer = answer.split(numbers[i]).join(i);
+  }
+  return answer * 1;
+}
+
+/// Js 공부하기 ..
