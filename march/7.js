@@ -24,4 +24,23 @@ function solution(n, lost, reserve) {
   return list.filter((a) => a >= 1).length;
 }
 
-///
+/// forEach 사용한 풀이
+
+function solution(n, lost, reserve) {
+  let students = Array(n + 1).fill(1);
+
+  lost.forEach((a) => (students[a] -= 1));
+  reserve.forEach((b) => (students[b] += 1));
+
+  for (let i = 1; i <= n; i++) {
+    if (students[i] === 2 && students[i - 1] === 0) {
+      students[i - 1]++;
+      students[i]--;
+    } else if (students[i] === 2 && students[i + 1] === 0) {
+      students[i + 1]++;
+      students[i]--;
+    }
+  }
+
+  return students.filter((a) => a >= 1).length - 1;
+}

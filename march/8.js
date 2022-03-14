@@ -49,16 +49,19 @@ function solution(id_list, report, k) {
 // 2. 로또의 최고 순위와 최저 순위
 
 function solution(lottos, win_nums) {
-  let zero = 0;
   let count = 0;
-  lottos.forEach((a) =>
-    a === 0 ? zero++ : win_nums.includes(a) ? count++ : null
-  );
+  let zero = 0;
 
-  return [
-    count >= 1 || zero >= 1 ? 7 - count - zero : 6,
-    count > 1 ? 7 - count : 6,
-  ];
+  for (let i = 0; i < lottos.length; i++) {
+    if (win_nums.includes(lottos[i])) count++;
+    if (lottos[i] == 0) zero++;
+  }
+
+  return zero == 6
+    ? [1, 6]
+    : count == 0
+    ? [6, 6]
+    : [7 - (count + zero), 7 - count];
 }
 
 /// filter 사용한 풀이
