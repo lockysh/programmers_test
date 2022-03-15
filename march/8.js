@@ -17,7 +17,6 @@ function solution(id_list, report, k) {
 
   for (const key in report_list) {
     if (report_list[key].length >= k) {
-      //이용정지 유저
       report_list[key].map((user) => {
         answer[id_list.indexOf(user)] += 1;
       });

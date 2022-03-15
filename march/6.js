@@ -80,6 +80,62 @@ function calDistance(now, target) {
   return distance;
 }
 
+/// 이차원배열 사용한 풀이
+
+function solution(numbers, hand) {
+  const key_dict = {
+    1: [0, 0],
+    2: [0, 1],
+    3: [0, 2],
+    4: [1, 0],
+    5: [1, 1],
+    6: [1, 2],
+    7: [2, 0],
+    8: [2, 1],
+    9: [2, 2],
+    '*': [3, 0],
+    0: [3, 1],
+    '#': [3, 2],
+  };
+  let answer = '';
+  let lHand = '*';
+  let rHand = '#';
+
+  for (let i = 0; i < numbers.length; i++) {
+    if ([1, 4, 7].includes(numbers[i])) {
+      answer += 'L';
+      lHand = numbers[i];
+    } else if ([3, 6, 9].includes(numbers[i])) {
+      answer += 'R';
+      rHand = numbers[i];
+    } else {
+      const l = key_dict[lHand];
+      const r = key_dict[rHand];
+      const c = key_dict[numbers[i]];
+
+      const distance_left = Math.abs(l[0] - c[0]) + Math.abs(l[1] - c[1]);
+      const distance_right = Math.abs(r[0] - c[0]) + Math.abs(r[1] - c[1]);
+
+      if (distance_right < distance_left) {
+        answer += 'R';
+        rHand = numbers[i];
+      } else if (distance_right > distance_left) {
+        answer += 'L';
+        lHand = numbers[i];
+      } else {
+        if (hand == 'right') {
+          answer += 'R';
+          rHand = numbers[i];
+        } else {
+          answer += 'L';
+          lHand = numbers[i];
+        }
+      }
+    }
+  }
+  return answer;
+}
+
 // 3. 숫자 문자열과 영단어
 
 function solution(s) {
@@ -103,4 +159,25 @@ function solution(s) {
   return answer * 1;
 }
 
-/// Js 공부하기 ..
+/// 정규식 사용한 풀이
+
+function solution(s) {
+  let charSet = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+
+  for (let [key, value] of Object.entries(charSet)) {
+    let re = new RegExp(`${key}`, 'g');
+    s = s.replace(re, value);
+  }
+  return parseInt(s);
+}
