@@ -54,6 +54,5 @@ function solution(nums) {
     }
     return true;
   }
-
   return answer;
 }
