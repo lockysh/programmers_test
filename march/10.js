@@ -1,5 +1,3 @@
-// map set 카카오 문제 풀기
-
 // 1. K번째 수
 
 function solution(array, commands) {
