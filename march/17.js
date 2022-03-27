@@ -20,60 +20,78 @@ function solution(s) {
 
 function solution(fees, records) {
   const [basicTime, basicFee, min, fee] = fees;
-  const cars = {};
-  const candidate = {};
-  // IN했을 때 넣는거
-  const lastCar = [];
-  // 들어왔다가 나간 차
+  const curr = {};
+  const inCar = {};
+  const outCar = [];
   const remainingCar = [];
-  // 주차장에 남은 차
 
   for (let x of records) {
-    let [clock, car, history] = x.split(' ');
-    let [hour, min] = clock.split(':').map(Number);
+    let [times, carNum, state] = x.split(' ');
+    let [hour, min] = times.split(':').map(Number);
 
-    if (history === 'IN') {
-      if (!lastCar.includes(car)) {
-        candidate[car] = [hour, min, 0];
-        remainingCar.push(car);
+    if (state === 'IN') {
+      if (!outCar.includes(carNum)) {
+        inCar[carNum] = [hour, min, 0];
+        remainingCar.push(carNum);
         continue;
       }
-      candidate[car] = [hour, min, cars[car]];
-      remainingCar.push(car);
+      inCar[carNum] = [hour, min, curr[carNum]];
+      remainingCar.push(carNum);
     }
 
-    if (history === 'OUT') {
-      lastCar.push(car);
-      remainingCar.splice(remainingCar.indexOf(car), 1);
-      let lastIn = candidate[car];
+    if (state === 'OUT') {
+      outCar.push(carNum);
+      remainingCar.splice(remainingCar.indexOf(carNum), 1);
+      let lastIn = inCar[carNum];
       let time = (hour - lastIn[0]) * 60 + min - lastIn[1];
 
-      if (cars.hasOwnProperty(car)) {
-        cars[car] = cars[car] + time;
+      if (curr.hasOwnProperty(carNum)) {
+        curr[carNum] = curr[carNum] + time;
       } else {
-        cars[car] = time;
+        curr[carNum] = time;
       }
     }
   }
 
   for (let car of remainingCar) {
-    let lastIn = candidate[car];
+    let lastIn = inCar[car];
     let time = (23 - lastIn[0]) * 60 + 59 - lastIn[1];
-    if (cars.hasOwnProperty(car)) {
-      cars[car] = cars[car] + time;
+    if (curr.hasOwnProperty(car)) {
+      curr[car] = curr[car] + time;
     } else {
-      cars[car] = time;
+      curr[car] = time;
     }
   }
   const answer = [];
 
-  for (let [car, time] of Object.entries(cars)) {
-    let lastIn = candidate[car];
+  for (let [car, time] of Object.entries(curr)) {
+    let lastIn = inCar[car];
     basicTime >= time
       ? (time = basicFee)
       : (time = basicFee + Math.ceil((time - basicTime) / min) * fee);
     answer.push([car, time]);
   }
 
+  return answer.sort((a, b) => a[0] - b[0]).map((v) => v[1]);
+}
+
+/// max시간 정해놓은 풀이
+
+function solution(fees, records) {
+  const parkingTime = {};
+  records.forEach((r) => {
+    let [time, id, type] = r.split(' ');
+    let [h, m] = time.split(':');
+    time = h * 1 * 60 + m * 1;
+    if (!parkingTime[id]) parkingTime[id] = 0;
+    if (type === 'IN') parkingTime[id] += 1439 - time;
+    if (type === 'OUT') parkingTime[id] -= 1439 - time;
+  });
+  const answer = [];
+  for (let [car, time] of Object.entries(parkingTime)) {
+    if (time <= fees[0]) time = fees[1];
+    else time = Math.ceil((time - fees[0]) / fees[2]) * fees[3] + fees[1];
+    answer.push([car, time]);
+  }
   return answer.sort((a, b) => a[0] - b[0]).map((v) => v[1]);
 }
