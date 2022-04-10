@@ -1,5 +1,4 @@
 // 1. 이진 변환 반복하기
-
 function solution(s) {
   let answer = [0, 0];
 
