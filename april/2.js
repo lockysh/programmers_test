@@ -1,5 +1,6 @@
-// 1.소수 찾기function solution(numbers) {
-  var answer = [];
+// 1.소수 찾기
+function solution(numbers) {
+  let answer = [];
   let nums = numbers.split('');
 
   // 소수 판별
@@ -25,7 +26,6 @@
       }
     }
   };
-
   getPermutation(nums, '');
   return answer.length;
 }
