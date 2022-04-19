@@ -1,5 +1,4 @@
-// 1. 짝지어 제거하기
-function solution(s) {
+// 1. 짝지어 제거하기function solution(s) {
   let string = s.split('');
   for (let i = 0; i < string.length; i++) {
     if (string[i] == string[i + 1]) {
@@ -9,8 +8,6 @@ function solution(s) {
   }
   return string.length > 0 ? 0 : 1;
 }
-
-// 효율성 문제로 통과X
 
 ///stack으로 접근한 풀이
 
