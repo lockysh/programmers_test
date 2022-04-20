@@ -1,4 +1,5 @@
-// 1. 짝지어 제거하기function solution(s) {
+// 1. 짝지어 제거하기
+function solution(s) {
   let string = s.split('');
   for (let i = 0; i < string.length; i++) {
     if (string[i] == string[i + 1]) {

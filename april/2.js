@@ -1,4 +1,5 @@
-// 1.소수 찾기function solution(numbers) {
+// 1.소수 찾기
+function solution(numbers) {
   let answer = [];
   let nums = numbers.split('');
 
@@ -27,18 +28,4 @@
   };
   getPermutation(nums, '');
   return answer.length;
-}
-
-// 2. 가장 큰 수(정렬)
-
-function solution(numbers) {
-  let answer = numbers.sort(numFunc);
-
-  // 0으로만 이뤄진 배열에 대한 예외처리
-  return answer[0] == '0' ? '0' : answer.join('');
-}
-function numFunc(a, b) {
-  const compare1 = (String(a) + String(b)) * 1;
-  const compare2 = (String(b) + String(a)) * 1;
-  return compare2 - compare1;
 }
